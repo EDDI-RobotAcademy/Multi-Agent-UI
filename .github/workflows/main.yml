@@ -10,8 +10,7 @@ jobs:
     runs-on: [self-hosted, multi-agent-ui]
 
     env:
-      # EC2에 있는 실제 소스 경로로 반드시 변경
-      DEPLOY_DIR: /home/ec2-user/multi-agent-ui
+      DEPLOY_DIR: /home/ec2-user/multi-agent-ui/Multi-Agent-UI
       COMPOSE_FILE: docker-compose.yml
 
     steps:
@@ -48,6 +47,7 @@ jobs:
       - name: Health Check
         run: |
           sleep 5
+          cd "$DEPLOY_DIR"
           if curl -sSf http://localhost:37123/ > /dev/null; then
             echo "multi-agent-ui is UP"
           else
